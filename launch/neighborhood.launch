@@ -1,0 +1,20 @@
+<launch>
+				<arg name="model" default="waffle" doc="model type [burger, waffle, waffle_pi]"/>
+				<param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro"/>
+				<include file="$(find gazebo_ros)/launch/empty_world.launch">
+					<arg name="world_name" value="$(find group_16)/worlds/neighborhood.sdf"/>
+					<arg name="paused" value="false"/>
+					<arg name="use_sim_time" value="true"/>
+					<arg name="gui" value="true"/>
+					<arg name="headless" value="false"/>
+					<arg name="debug" value="false"/>
+				</include>
+
+				<group ns="robot0">
+					<param name="tf_prefix" value="robot0_tf" />
+					<include file="$(find group_16)/launch/one_robot.launch" >
+						<arg name="init_pose" value="-x 0.0 -y -0 -z 0" />
+						<arg name="robot_name"  value="Robot0" />
+					</include>
+				</group>
+</launch>
